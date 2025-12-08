@@ -4,15 +4,15 @@ import { Token, Tokenizer } from '../src/tokenizer'
 const basicCases = [
   {
     input: '0',
-    tokens: ['PLACEHOLDER:0']
+    tokens: ['PLACEHOLDER:0'],
   },
   {
     input: '#',
-    tokens: ['PLACEHOLDER:#']
+    tokens: ['PLACEHOLDER:#'],
   },
   {
     input: '?',
-    tokens: ['PLACEHOLDER:?']
+    tokens: ['PLACEHOLDER:?'],
   },
   {
     input: '00.00',
@@ -21,43 +21,47 @@ const basicCases = [
       'PLACEHOLDER:0',
       'DOT:.',
       'PLACEHOLDER:0',
-      'PLACEHOLDER:0'
-    ]
-  }
+      'PLACEHOLDER:0',
+    ],
+  },
+  {
+    input: 'general',
+    tokens: ['GENERAL'],
+  },
 ]
 
 const literalCases = [
   {
     input: '"Hello"',
-    tokens: ['LITERAL:Hello']
+    tokens: ['LITERAL:Hello'],
   },
   {
     input: '"He said ""Yes"""',
-    tokens: ['LITERAL:He said "Yes"']
+    tokens: ['LITERAL:He said "Yes"'],
   },
   {
     input: '"%"',
-    tokens: ['LITERAL:%']
-  }
+    tokens: ['LITERAL:%'],
+  },
 ]
 const escapeCases = [
   {
     input: '\\-',
-    tokens: ['LITERAL:-']
+    tokens: ['LITERAL:-'],
   },
   {
     input: '\\ ',
-    tokens: ['LITERAL: ']
+    tokens: ['LITERAL: '],
   },
   {
     input: '\\(',
-    tokens: ['LITERAL:(']
-  }
+    tokens: ['LITERAL:('],
+  },
 ]
 const conditionCases = [
   {
     input: '[>100]0',
-    tokens: ['COND_OP:>', 'COND_NUM:100', 'PLACEHOLDER:0']
+    tokens: ['COND_OP:>', 'COND_NUM:100', 'PLACEHOLDER:0'],
   },
   {
     input: '[<=0]#,##0',
@@ -68,14 +72,14 @@ const conditionCases = [
       'COMMA:,',
       'PLACEHOLDER:#',
       'PLACEHOLDER:#',
-      'PLACEHOLDER:0'
-    ]
-  }
+      'PLACEHOLDER:0',
+    ],
+  },
 ]
 const colorCases = [
   {
     input: '[Red]0',
-    tokens: ['COLOR:Red', 'PLACEHOLDER:0']
+    tokens: ['COLOR:Red', 'PLACEHOLDER:0'],
   },
   {
     input: '[Blue][>0]0.00',
@@ -86,14 +90,14 @@ const colorCases = [
       'PLACEHOLDER:0',
       'DOT:.',
       'PLACEHOLDER:0',
-      'PLACEHOLDER:0'
-    ]
-  }
+      'PLACEHOLDER:0',
+    ],
+  },
 ]
 const currencyCases = [
   {
     input: '$0',
-    tokens: ['LITERAL:$', 'PLACEHOLDER:0']
+    tokens: ['LITERAL:$', 'PLACEHOLDER:0'],
   },
   {
     input: '¥#,##0',
@@ -103,9 +107,9 @@ const currencyCases = [
       'COMMA:,',
       'PLACEHOLDER:#',
       'PLACEHOLDER:#',
-      'PLACEHOLDER:0'
-    ]
-  }
+      'PLACEHOLDER:0',
+    ],
+  },
 ]
 const specialCases = [
   {
@@ -115,12 +119,12 @@ const specialCases = [
       'COMMA:,',
       'PLACEHOLDER:#',
       'PLACEHOLDER:#',
-      'PLACEHOLDER:0'
-    ]
+      'PLACEHOLDER:0',
+    ],
   },
   {
     input: '0%',
-    tokens: ['PLACEHOLDER:0', 'PERCENT:%']
+    tokens: ['PLACEHOLDER:0', 'PERCENT:%'],
   },
   {
     input: '0.00E+00',
@@ -132,19 +136,19 @@ const specialCases = [
       'EXP:E',
       'PLUS:+',
       'PLACEHOLDER:0',
-      'PLACEHOLDER:0'
-    ]
-  }
+      'PLACEHOLDER:0',
+    ],
+  },
 ]
 const datetimeCases = [
   {
     input: 'yyyy-mm-dd',
-    tokens: ['DATE:yyyy', 'LITERAL:-', 'DATE:mm', 'LITERAL:-', 'DATE:dd']
+    tokens: ['DATE:yyyy', 'LITERAL:-', 'DATE:mm', 'LITERAL:-', 'DATE:dd'],
   },
   {
     input: 'hh:mm:ss',
-    tokens: ['DATE:hh', 'LITERAL::', 'DATE:mm', 'LITERAL::', 'DATE:ss']
-  }
+    tokens: ['DATE:hh', 'LITERAL::', 'DATE:mm', 'LITERAL::', 'DATE:ss'],
+  },
 ]
 
 const sectionCases = [
@@ -156,9 +160,9 @@ const sectionCases = [
       'COLOR:Red',
       'PLACEHOLDER:0',
       'SECTION:;',
-      'LITERAL:-'
-    ]
-  }
+      'LITERAL:-',
+    ],
+  },
 ]
 
 const complexCases = [
@@ -187,9 +191,9 @@ const complexCases = [
       'PLACEHOLDER:0',
       'PLACEHOLDER:0',
       'SECTION:;',
-      'LITERAL:N/A'
-    ]
-  }
+      'LITERAL:N/A',
+    ],
+  },
 ]
 
 const allTestGroups: [string, { input: string; tokens: string[] }[]][] = [
@@ -202,7 +206,7 @@ const allTestGroups: [string, { input: string; tokens: string[] }[]][] = [
   ['Special', specialCases],
   ['DateTime', datetimeCases],
   ['Section', sectionCases],
-  ['Complex', complexCases]
+  ['Complex', complexCases],
 ]
 
 function stringifyToken(t: Token) {
@@ -211,7 +215,7 @@ function stringifyToken(t: Token) {
       return 'SECTION:;'
     case 'Placeholder':
       return 'PLACEHOLDER:' + t.char
-    case 'DecimalPoint':
+    case 'Dot':
       return 'DOT:.'
     case 'ThousandSep':
       return 'COMMA:,'
@@ -248,6 +252,8 @@ function stringifyToken(t: Token) {
       return res
     case 'DateToken':
       return 'DATE:' + t.token
+    case 'General':
+      return 'GENERAL'
   }
 }
 

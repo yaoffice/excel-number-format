@@ -1,41 +1,28 @@
 export type Token =
-  | {
-      type: 'DateToken'
-      token: string
-    }
-  | {
-      type:
-        | 'SectionSeparator'
-        | 'DecimalPoint'
-        | 'ThousandSep'
-        | 'Percent'
-        | 'TextPlaceholder'
-    }
-  | {
-      type: 'Placeholder' | 'Literal' | 'Escape' | 'Fill' | 'Space'
-      char: string
-    }
-  | {
-      type: 'Color'
-      name: string
-    }
-  | {
-      type: 'ScientificSymbol'
-      sign?: '+' | '-'
-    }
-  | {
-      type: 'Quoted'
-      text: string
-    }
-  | {
-      type: 'Locale'
-      raw: string
-    }
-  | {
-      type: 'Condition'
-      op: string
-      value: number
-    }
+  | PlaceholderToken
+  | ThousandToken
+  | EscapeToken
+  | FillToken
+  | SpaceToken
+  | LiteralToken
+  | { type: 'Dot' }
+  | { type: 'Percent' }
+  | { type: 'ScientificSymbol'; sign: '+' | '-' }
+  | { type: 'Color'; name: string }
+  | { type: 'Condition'; op: string; value: number }
+  | { type: 'Locale'; raw: string }
+  | { type: 'Quoted'; text: string }
+  | { type: 'TextPlaceholder' } // @
+  | { type: 'DateToken'; token: string }
+  | { type: 'General' } // General format keyword
+  | { type: 'SectionSeparator' }
+
+export type PlaceholderToken = { type: 'Placeholder'; char: '0' | '#' | '?' }
+export type LiteralToken = { type: 'Literal'; char: string } // any literal char
+export type ThousandToken = { type: 'ThousandSep' }
+export type FillToken = { type: 'Fill'; char: string }
+export type SpaceToken = { type: 'Space'; char: string }
+export type EscapeToken = { type: 'Escape'; char: string }
 
 export class Tokenizer {
   private format: string
@@ -99,7 +86,7 @@ export class Tokenizer {
 
       // 8. Decimal point
       if (ch === '.') {
-        tokens.push({ type: 'DecimalPoint' })
+        tokens.push({ type: 'Dot' })
         this.next()
         continue
       }
@@ -142,7 +129,13 @@ export class Tokenizer {
         continue
       }
 
-      // 14. Default literal
+      // 14. General keyword (case-insensitive)
+      if (this.tryGeneral()) {
+        tokens.push({ type: 'General' })
+        continue
+      }
+
+      // 15. Default literal
       tokens.push({ type: 'Literal', char: ch })
       this.next()
     }
@@ -222,7 +215,7 @@ export class Tokenizer {
       return {
         type: 'Condition',
         op: condMatch[1],
-        value: Number(condMatch[2])
+        value: Number(condMatch[2]),
       }
     }
 
@@ -235,7 +228,7 @@ export class Tokenizer {
       'Magenta',
       'Red',
       'White',
-      'Yellow'
+      'Yellow',
     ]
     if (colors.includes(content)) {
       return { type: 'Color', name: content }
@@ -249,20 +242,11 @@ export class Tokenizer {
   private tryScientific(): Token | null {
     const ch = this.peek()
     const sign = this.peek(1)
-    // const d1 = this.peek(2)
-    // const d2 = this.peek(3)
-
-    if (
-      (ch === 'E' || ch === 'e') &&
-      (sign === '+' || sign === '-')
-      // &&
-      // /\d/.test(d1) &&
-      // /\d/.test(d2)
-    ) {
-      this.pos += 2 // consume E+00
+    if ((ch === 'E' || ch === 'e') && (sign === '+' || sign === '-')) {
+      this.pos += 2 // consume 'E+'
       return {
         type: 'ScientificSymbol',
-        sign: sign as '+' | '-'
+        sign: sign as '+' | '-',
       }
     }
     return null
@@ -289,7 +273,7 @@ export class Tokenizer {
       'ss',
       's',
       'AM/PM',
-      'am/pm'
+      'am/pm',
     ]
 
     for (const p of patterns) {
@@ -299,5 +283,15 @@ export class Tokenizer {
       }
     }
     return null
+  }
+
+  // --- General keyword (case-insensitive) ---
+  private tryGeneral(): boolean {
+    const general = 'general'
+    if (this.format.toLowerCase().startsWith(general, this.pos)) {
+      this.pos += general.length
+      return true
+    }
+    return false
   }
 }
