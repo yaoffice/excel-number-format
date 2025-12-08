@@ -1,5 +1,5 @@
 {
-  "name": "@yaoffice/excel-number-format",
+  "name": "@yaoffice/number-format",
   "version": "0.0.0",
   "description": "A modern, lightweight TypeScript library for parsing and rendering Excel-style number formats",
   "type": "module",
