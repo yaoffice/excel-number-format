@@ -4,15 +4,15 @@
   "description": "A modern, lightweight TypeScript library for parsing and rendering Excel-style number formats",
   "type": "module",
   "license": "MIT",
-  "homepage": "https://github.com/linkduan/excel-number-format#readme",
+  "homepage": "https://github.com/yaoffice/excel-number-format#readme",
   "bugs": {
-    "url": "https://github.com/linkduan/excel-number-format/issues"
+    "url": "https://github.com/yaoffice/excel-number-format/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/linkduan/excel-number-format.git"
+    "url": "git+https://github.com/yaoffice/excel-number-format.git"
   },
-  "author": "Link Duan <linkduan@example.com>",
+  "author": "link-duan <itsl@foxmail.com>",
   "keywords": [
     "excel",
     "number",

@@ -2,7 +2,7 @@
 
 > A modern, lightweight TypeScript library for parsing and rendering Excel-style number formats
 
-[![CI](https://github.com/linkduan/excel-number-format/workflows/CI/badge.svg)](https://github.com/linkduan/excel-number-format/actions)
+[![CI](https://github.com/yaoffice/excel-number-format/workflows/CI/badge.svg)](https://github.com/yaoffice/excel-number-format/actions)
 [![npm version](https://img.shields.io/npm/v/excel-number-format.svg)](https://www.npmjs.com/package/excel-number-format)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
