@@ -1,18 +1,28 @@
 {
-  "name": "tsdown-starter",
+  "name": "@yaoffice/excel-number-format",
   "version": "0.0.0",
-  "description": "A starter for creating a TypeScript package.",
+  "description": "A modern, lightweight TypeScript library for parsing and rendering Excel-style number formats",
   "type": "module",
   "license": "MIT",
-  "homepage": "https://github.com/author/library#readme",
+  "homepage": "https://github.com/linkduan/excel-number-format#readme",
   "bugs": {
-    "url": "https://github.com/author/library/issues"
+    "url": "https://github.com/linkduan/excel-number-format/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/author/library.git"
+    "url": "git+https://github.com/linkduan/excel-number-format.git"
   },
-  "author": "Author Name <author.name@mail.com>",
+  "author": "Link Duan <linkduan@example.com>",
+  "keywords": [
+    "excel",
+    "number",
+    "format",
+    "formatting",
+    "spreadsheet",
+    "parser",
+    "renderer",
+    "typescript"
+  ],
   "files": [
     "dist"
   ],
