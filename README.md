@@ -3,7 +3,7 @@
 > A modern, lightweight TypeScript library for parsing and rendering Excel-style number formats
 
 [![CI](https://github.com/yaoffice/excel-number-format/workflows/CI/badge.svg)](https://github.com/yaoffice/excel-number-format/actions)
-[![npm version](https://img.shields.io/npm/v/excel-number-format.svg)](https://www.npmjs.com/package/excel-number-format)
+[![npm version](https://img.shields.io/npm/v/@yaoffice/excel-number-format.svg)](https://www.npmjs.com/package/@yaoffice/excel-number-format)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ## ✨ Features
@@ -20,19 +20,19 @@
 
 ```bash
 # npm
-npm install excel-number-format
+npm install @yaoffice/excel-number-format
 
 # pnpm
-pnpm add excel-number-format
+pnpm add @yaoffice/excel-number-format
 
 # yarn
-yarn add excel-number-format
+yarn add @yaoffice/excel-number-format
 ```
 
 ## 🚀 Quick Start
 
 ```typescript
-import { render } from 'excel-number-format'
+import { render } from '@yaoffice/excel-number-format'
 
 // Basic number formatting
 render(123, '0000')
@@ -64,7 +64,7 @@ render(150, '[>100]"Big:" 0;"Small:" 0')
 ### Basic Number Formatting
 
 ```typescript
-import { render } from 'excel-number-format'
+import { render } from '@yaoffice/excel-number-format'
 
 // Digit placeholders
 render(123, '#')        // => { text: '123' }
