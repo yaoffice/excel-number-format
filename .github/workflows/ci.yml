@@ -39,6 +39,20 @@ jobs:
       - name: Run tests
         run: pnpm run test
       
+      - name: Generate coverage
+        run: pnpm run test:coverage
+      
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        if: matrix.node-version == 20
+        with:
+          files: ./coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      
       - name: Build
         run: pnpm run build
 
